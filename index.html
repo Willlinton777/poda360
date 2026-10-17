@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>YumaRaíz · La Dorada | Reto 4 - Rally Latinoamericano de Innovación 2026</title>
+  
+  <!-- Favicon e Iconografía Oficial YumaRaíz -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <meta name="msapplication-TileImage" content="assets/img/apple-touch-icon.png" />
+  <meta name="theme-color" content="#18331E" />
+  
+  <!-- Tipografías Oficiales -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  
+  <!-- Estilos Unificados -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-root-layout">
+    
+    <!-- CABECERA INSTITUCIONAL SUPERIOR -->
+    <header class="app-global-header">
+      <div class="app-brand-area" onclick="App.navigateTo('screenInicio')" title="YumaRaíz">
+        <div class="app-logo-badge">
+          <img src="assets/img/logo_yumaraiz_icon.png" alt="YumaRaíz Logo" class="app-logo-img" />
+        </div>
+        <div class="app-brand-titles">
+          <div class="app-brand-main-title">
+            <span>YumaRaíz</span>
+            <span class="app-brand-badge-tag">RETO 4</span>
+          </div>
+          <div class="app-brand-sub">
+            <span class="co-icon" data-co-icon="silueta-colombia" data-size="14"></span>
+            <span>La Dorada, Caldas · Adaptación Climática</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Radar Territorial La Dorada -->
+      <div class="territory-radar-beacon">
+        <div class="radar-dot-pulse"></div>
+        <span class="co-icon" data-co-icon="termometro" data-size="14"></span>
+        <span class="beacon-text">La Dorada 35.4 °C</span>
+      </div>
+
+      <!-- Pestañas de Navegación de Escritorio -->
+      <nav class="desktop-nav-tabs" aria-label="Navegación principal">
+        <button class="desktop-tab-btn active" data-target-screen="screenInicio" onclick="App.navigateTo('screenInicio')">
+          <span class="co-icon" data-co-icon="silueta-colombia" data-size="16"></span>
+          <span>Iniciativa</span>
+        </button>
+        <button class="desktop-tab-btn" data-target-screen="screenMapa" onclick="App.navigateTo('screenMapa')">
+          <span class="co-icon" data-co-icon="mapa" data-size="16"></span>
+          <span>Mapa</span>
+        </button>
+        <button class="desktop-tab-btn" data-target-screen="screenBioalcorque" onclick="App.navigateTo('screenBioalcorque')">
+          <span class="co-icon" data-co-icon="arbol-tropical" data-size="16"></span>
+          <span>Bioalcorque</span>
+        </button>
+        <button class="desktop-tab-btn" data-target-screen="screenDecision" onclick="App.navigateTo('screenDecision')">
+          <span class="co-icon" data-co-icon="papelera-reciclaje" data-size="16"></span>
+          <span>Ruta Climática</span>
+        </button>
+        <button class="desktop-tab-btn" data-target-screen="screenRetos" onclick="App.navigateTo('screenRetos')">
+          <span class="co-icon" data-co-icon="usuarios" data-size="16"></span>
+          <span>«Mi aporte»</span>
+        </button>
+        <button class="desktop-tab-btn" data-target-screen="screenRally" onclick="App.navigateTo('screenRally')">
+          <span class="co-icon" data-co-icon="archivo" data-size="16"></span>
+          <span>Reto 4 Rally</span>
+        </button>
+      </nav>
+
+      <!-- Botones Rápidos de Cabecera -->
+      <div class="header-actions-group">
+        <button class="btn-header-report" onclick="App.openModal('modalReporte')">
+          <span class="co-icon" data-co-icon="agregar" data-size="16"></span>
+          <span>Reportar Poda</span>
+        </button>
+        <button class="btn-header-action-round" onclick="App.openModal('modalAccesibilidad')" title="Opciones de Accesibilidad" aria-label="Accesibilidad">
+          <span class="co-icon" data-co-icon="ojo" data-size="18"></span>
+        </button>
+        <button class="btn-header-action-round" onclick="App.openModal('modalNotificaciones')" title="Avisos y Alertas" aria-label="Notificaciones">
+          <span class="co-icon" data-co-icon="alerta" data-size="18"></span>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- VIEWPORT DE LAS PANTALLAS PRINCIPALES -->
+    <main class="screens-viewport">
+
+      <!-- PANTALLA 0: INICIO / PRESENTACIÓN DE LA INICIATIVA -->
+      <section id="screenInicio" class="screen-view active">
+        <div class="screen-scrollable">
+          <div class="content-container-max landing-page-wrapper">
+
+            <!-- HERO DE LA INICIATIVA -->
+            <div class="landing-hero-card">
+              <div class="landing-badge-rally">
+                <span class="co-icon" data-co-icon="silueta-colombia" data-size="16"></span>
+                <span>Rally Latinoamericano de Innovación 2026 · Reto 4</span>
+              </div>
+              
+              <div class="landing-hero-content-split">
+                <div class="landing-hero-text">
+                  <h1 class="landing-hero-title">
+                    <span class="brand-highlight">YumaRaíz</span> · La Dorada
+                  </h1>
+                  
+                  <p class="landing-hero-desc">
+                    Plataforma Territorial de Economía Circular y Resiliencia Térmica Urbana en La Dorada, Caldas. Transformamos la biomasa de poda urbana en escudos climáticos vivos que protegen las raíces del arbolado público frente al estrés extremo, reducen islas de calor y desvían el 100% de los residuos verdes del relleno sanitario regional.
+                  </p>
+                </div>
+                <div class="landing-hero-emblem-badge" title="Emblema Oficial YumaRaíz">
+                  <img src="assets/img/logo_yumaraiz_icon.png" alt="Emblema Oficial YumaRaíz" class="landing-hero-emblem-img" />
+                </div>
+              </div>
+
+              <!-- Botones de Acción / Demo Interactiva -->
+              <div class="landing-cta-row">
+                <button class="btn-demo-primary" onclick="App.iniciarDemoGuiada()">
+                  <span class="co-icon" data-co-icon="circle-check" data-size="20"></span>
+                  <span>Iniciar Demo Interactiva</span>
+                </button>
+                <button class="btn-demo-secondary" onclick="App.navigateTo('screenMapa')">
+                  <span class="co-icon" data-co-icon="mapa" data-size="18"></span>
+                  <span>Explorar Mapa</span>
+                </button>
+                <button class="btn-demo-secondary" onclick="App.navigateTo('screenBioalcorque')">
+                  <span class="co-icon" data-co-icon="arbol-tropical" data-size="18"></span>
+                  <span>Simulador Bioalcorque</span>
+                </button>
+                <button class="btn-demo-secondary" onclick="App.navigateTo('screenDecision')">
+                  <span class="co-icon" data-co-icon="papelera-reciclaje" data-size="18"></span>
+                  <span>Ruta de Enrutamiento</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- GRILLA DE MÉTRICAS DE IMPACTO AMBIENTAL Y ECONÓMICO -->
+            <div class="landing-stats-grid">
+              <div class="stat-box">
+                <div class="stat-number text-emerald">-11.4 °C</div>
+                <div class="stat-label">Atenuación Térmica Edáfica</div>
+                <div class="stat-sub">Reducción comprobada de temperatura en la matriz radicular bajo sol canicular de 38 °C.</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-number text-blue">+49 %</div>
+                <div class="stat-label">Retención Hídrica en Suelo</div>
+                <div class="stat-sub">Conservación de humedad efectiva durante 7 días continuos sin riego suplementario.</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-number text-amber">$115.000</div>
+                <div class="stat-label">COP / Tonelada Evitada</div>
+                <div class="stat-sub">Ahorro financiero directo por desvío de poda del Relleno Sanitario Regional La Doradita.</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-number text-selva">10 Nodos</div>
+                <div class="stat-label">Puntos Reales Georreferenciados</div>
+                <div class="stat-sub">Red territorial activa en La Dorada: Bioalcorques, acopios, vivero y focos de calor.</div>
+              </div>
+            </div>
+
+            <!-- SECCIÓN: PILARES DE LA INNOVACIÓN -->
+            <div class="landing-section-title-group">
+              <span class="badge-tag-small">ARQUITECTURA DE LA SOLUCIÓN</span>
+              <h2 class="section-card-title">Tres Pilares Integrados para La Dorada</h2>
+              <p class="section-card-subtitle">Una estrategia holística que une el acolchado físico, la logística de economía circular y la gobernanza comunitaria.</p>
+            </div>
+
+            <div class="landing-pillars-grid">
+              <!-- Pilar 1 -->
+              <div class="pillar-card-hero">
+                <div class="pillar-hero-icon bg-emerald-soft text-emerald">
+                  <span class="co-icon" data-co-icon="arbol-tropical" data-size="28"></span>
+                </div>
+                <h3 class="pillar-hero-title">1. Bioalcorque</h3>
+                <p class="pillar-hero-desc">
+                  Módulo de acolchado orgánico permeable elaborado con poda triturada y calibrada. Integra un diseño con despeje de cuello radicular (15 cm) para prevenir fitopatologías fúngicas y conservar la humedad freática.
+                </p>
+                <div class="pillar-bullet-list">
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Modera la temperatura edáfica de 38.8 °C a 27.4 °C.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Placa física QR con trazabilidad digital y balance hídrico.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Elimina la necesidad de riego diario por cisterna municipal.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pilar 2 -->
+              <div class="pillar-card-hero">
+                <div class="pillar-hero-icon bg-blue-soft text-blue">
+                  <span class="co-icon" data-co-icon="papelera-reciclaje" data-size="28"></span>
+                </div>
+                <h3 class="pillar-hero-title">2. Ruta Climática Circular</h3>
+                <p class="pillar-hero-desc">
+                  Motor de enrutamiento cascada multi-criterio. Clasifica la poda urbana según porcentaje de humedad, calibre de rama y condición sanitaria para dirigirla a acolchado, compostaje o estructuración de suelos.
+                </p>
+                <div class="pillar-bullet-list">
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Cero disposición en el Relleno Sanitario La Doradita.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Enrutamiento logístico hacia el Vivero Municipal Norcasia.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Cálculo instantáneo de ahorro financiero y CO₂ mitigado.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pilar 3 -->
+              <div class="pillar-card-hero">
+                <div class="pillar-hero-icon bg-amber-soft text-amber">
+                  <span class="co-icon" data-co-icon="usuarios" data-size="28"></span>
+                </div>
+                <h3 class="pillar-hero-title">3. «Mi aporte» Comunitario</h3>
+                <p class="pillar-hero-desc">
+                  Canal de participación ciudadana y gobernanza ambiental. Los doradenses reportan podas clandestinas, apadrinan bioalcorques en sus barrios y acumulan eco-créditos por el cuidado del arbolado urbano.
+                </p>
+                <div class="pillar-bullet-list">
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Reporte ágil georreferenciado con geolocalización directa.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Gamificación cívica articulada con juntas de acción comunal.</span>
+                  </div>
+                  <div class="pillar-bullet-item">
+                    <span class="co-icon text-emerald" data-co-icon="check" data-size="14"></span>
+                    <span>Validación y trazabilidad en el mapa oficial de La Dorada.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SECCIÓN: CÓMO PROBAR LA DEMO INTERACTIVA (GUÍA PASO A PASO) -->
+            <div class="landing-flow-box">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+                <div>
+                  <span class="badge-tag-small">EXPERIENCIA EVALUADORA</span>
+                  <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 800; color: var(--texto-oscuro); margin-top: 4px;">
+                    ¿Cómo Explorar la Demostración Interactiva?
+                  </h3>
+                  <p style="font-size: 0.84rem; color: var(--texto-secundario); max-width: 680px; margin-top: 4px;">
+                    Diseñado para que los jurados del Rally Latinoamericano de Innovación validen en vivo cada aspecto técnico del Reto 4:
+                  </p>
+                </div>
+                <button class="btn-demo-primary" onclick="App.iniciarDemoGuiada()">
+                  <span class="co-icon" data-co-icon="circle-check" data-size="18"></span>
+                  <span>Lanzar Demo Ahora</span>
+                </button>
+              </div>
+
+              <div class="flow-steps-grid">
+                <div class="flow-step-box">
+                  <div class="step-num-badge">1</div>
+                  <h4 class="step-title">Mapa en Tiempo Real</h4>
+                  <p class="step-desc">Explora los 10 puntos reales en La Dorada: haz clic en cualquier pin con forma de gota para abrir su ficha técnica completa.</p>
+                </div>
+                <div class="flow-step-box">
+                  <div class="step-num-badge">2</div>
+                  <h4 class="step-title">Ficha y Código QR</h4>
+                  <p class="step-desc">Inspecciona el Samán del Parque Bolívar: verifica el balance térmico edáfico (-11.4 °C) y genera el QR oficial de trazabilidad.</p>
+                </div>
+                <div class="flow-step-box">
+                  <div class="step-num-badge">3</div>
+                  <h4 class="step-title">Laboratorio In Vitro</h4>
+                  <p class="step-desc">Ajusta los deslizadores de radiación solar y espesor del bioalcorque para comprobar en tiempo real la atenuación del calor.</p>
+                </div>
+                <div class="flow-step-box">
+                  <div class="step-num-badge">4</div>
+                  <h4 class="step-title">Calculadora de Enrutamiento</h4>
+                  <p class="step-desc">Calcula el destino óptimo de lotes de poda y valida el ahorro en tarifas de aseo ($115.000 COP/t) y huella de carbono.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- BANNER INSTITUCIONAL DEL EQUIPO -->
+            <div style="background: #FFFFFF; border: 1.5px solid var(--borde-suave); border-radius: var(--radio-md); padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: var(--sombra-card);">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div style="width: 44px; height: 44px; border-radius: 12px; background: var(--verde-fondo); border: 1px solid var(--borde-verde); display: flex; align-items: center; justify-content: center; color: var(--verde-selva);">
+                  <span class="co-icon" data-co-icon="ceiba" data-size="24"></span>
+                </div>
+                <div>
+                  <h4 style="font-family: var(--font-display); font-size: 0.95rem; font-weight: 800; color: var(--texto-oscuro);">
+                    Equipo Slytherin · UNAD Zona Occidente
+                  </h4>
+                  <p style="font-size: 0.78rem; color: var(--texto-secundario);">
+                    Rally Latinoamericano de Innovación 2026 · Sede La Dorada, Caldas · Reto 4: Manejo ecológico de residuos de poda urbana
+                  </p>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <button class="btn btn-outline" onclick="App.navigateTo('screenRally')" style="font-size: 0.82rem; padding: 8px 16px;">
+                  <span class="co-icon" data-co-icon="archivo" data-size="16"></span>
+                  <span>Ver Ficha Oficial Reto 4</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA 1: MAPA GEOGRÁFICO Y TRAZABILIDAD -->
+      <section id="screenMapa" class="screen-view map-screen">
+        <!-- Barra Flotante de Filtros -->
+        <div class="map-floating-filters-bar">
+          <button class="filter-pill active" data-filter="todos" onclick="MapModule.setFilter('todos', this)">
+            <span class="co-icon" data-co-icon="mapa" data-size="14"></span>
+            <span>Todos los Puntos</span>
+          </button>
+          <button class="filter-pill" data-filter="bioalcorque" onclick="MapModule.setFilter('bioalcorque', this)">
+            <span class="co-icon" data-co-icon="ceiba" data-size="14"></span>
+            <span>Bioalcorques</span>
+          </button>
+          <button class="filter-pill" data-filter="poda" onclick="MapModule.setFilter('poda', this)">
+            <span class="co-icon" data-co-icon="tijeras" data-size="14"></span>
+            <span>Lotes de Poda</span>
+          </button>
+          <button class="filter-pill" data-filter="calor" onclick="MapModule.setFilter('calor', this)">
+            <span class="co-icon" data-co-icon="fuego-llama" data-size="14"></span>
+            <span>Focos de Calor</span>
+          </button>
+          <button class="filter-pill" data-filter="circular" onclick="MapModule.setFilter('circular', this)">
+            <span class="co-icon" data-co-icon="papelera-reciclaje" data-size="14"></span>
+            <span>Nodos Circulares</span>
+          </button>
+        </div>
+
+        <!-- Contenedor del Mapa Leaflet -->
+        <div id="mapView" class="map-leaflet-canvas"></div>
+
+        <!-- Inspector Lateral / Drawer Flotante de Detalles -->
+        <aside id="detailDrawer" class="map-detail-drawer" aria-label="Detalle del punto georreferenciado"></aside>
+      </section>
+
+      <!-- PANTALLA 2: BIOALCORQUE Y SIMULADOR EXPERIMENTAL -->
+      <section id="screenBioalcorque" class="screen-view">
+        <div class="screen-scrollable">
+          <div class="content-container-max">
+            
+            <!-- Hero de la Innovación -->
+            <div class="bio-hero-card">
+              <div class="bio-hero-header">
+                <div class="bio-hero-icon-slot">
+                  <span class="co-icon" data-co-icon="ceiba" data-size="32"></span>
+                </div>
+                <div>
+                  <span class="badge-accent-tag">INNOVACIÓN FÍSICA Y AMBIENTAL</span>
+                  <h1 class="page-main-title">Bioalcorque</h1>
+                  <p class="page-subtitle">Acolchado orgánico modular derivado de poda urbana para la protección del arbolado de La Dorada frente al estrés térmico y la deshidratación radicular.</p>
+                </div>
+              </div>
+
+              <div class="bio-principles-grid">
+                <div class="bio-principle-card">
+                  <span class="co-icon text-emerald" data-co-icon="gota" data-size="20"></span>
+                  <h4>Conservación Hídrica</h4>
+                  <p>Reduce hasta un 75% la evaporación directa del agua del suelo en temporadas secas.</p>
+                </div>
+                <div class="bio-principle-card">
+                  <span class="co-icon text-emerald" data-co-icon="termometro" data-size="20"></span>
+                  <h4>Atenuación Térmica</h4>
+                  <p>Modera entre 10°C y 14°C la temperatura radicular respecto al asfalto y suelo desnudo.</p>
+                </div>
+                <div class="bio-principle-card">
+                  <span class="co-icon text-emerald" data-co-icon="qr" data-size="20"></span>
+                  <h4>Ficha Digital Trazable</h4>
+                  <p>Cada alcorque cuenta con placa QR que certifica el lote de poda utilizado y sus mediciones.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- SIMULADOR EXPERIMENTAL IN VITRO -->
+            <div class="simulator-main-card">
+              <div class="simulator-header">
+                <div>
+                  <span class="badge-tag-small">PROTOCOLO EXPERIMENTAL COMPARATIVO</span>
+                  <h2 class="section-card-title">Simulador Didáctico de Respuesta Edáfica</h2>
+                  <p class="section-card-subtitle">Compara en tiempo real el comportamiento térmico e hídrico entre un suelo testigo expuesto y un árbol protegido con Bioalcorque.</p>
+                </div>
+              </div>
+
+              <!-- Controles de Prueba -->
+              <div class="simulator-controls-grid">
+                <div class="sim-control-box">
+                  <div class="sim-control-header">
+                    <label for="simHorasSol">Insolación Diurna Directa:</label>
+                    <span id="simHorasSolVal" class="sim-badge-val">6 h</span>
+                  </div>
+                  <input type="range" id="simHorasSol" min="2" max="10" step="1" value="6" class="sim-slider" />
+                  <span class="sim-help-text">Radiación solar típica en La Dorada (Magdalena Caldense).</span>
+                </div>
+
+                <div class="sim-control-box">
+                  <div class="sim-control-header">
+                    <label for="simEspesor">Espesor de Mulch Calibrado:</label>
+                    <span id="simEspesorVal" class="sim-badge-val">5 cm</span>
+                  </div>
+                  <input type="range" id="simEspesor" min="2" max="10" step="1" value="5" class="sim-slider" />
+                  <span class="sim-help-text">Capa recomendada: 5 a 8 cm de astillas de 3 a 7 cm.</span>
+                </div>
+
+                <div class="sim-control-box">
+                  <div class="sim-control-header">
+                    <label for="simDespeje">Despeje Libre del Tronco:</label>
+                    <span id="simDespejeVal" class="sim-badge-val">15 cm</span>
+                  </div>
+                  <input type="range" id="simDespeje" min="0" max="25" step="1" value="15" class="sim-slider" />
+                  <span class="sim-help-text">Distancia libre para evitar hongos en el cuello radicular.</span>
+                </div>
+
+                <div class="sim-control-box">
+                  <div class="sim-control-header">
+                    <label for="simDiasSinRiego">Días Transcurridos sin Riego:</label>
+                    <span id="simDiasSinRiegoVal" class="sim-badge-val">3 días</span>
+                  </div>
+                  <input type="range" id="simDiasSinRiego" min="0" max="8" step="1" value="3" class="sim-slider" />
+                  <span class="sim-help-text">Simulación de estrés hídrico acumulado.</span>
+                </div>
+              </div>
+
+              <!-- Alerta Técnica Dinámica -->
+              <div id="simTechnicalAlert" class="technical-alert alert-success-active">
+                <div class="technical-alert-icon">
+                  <span class="co-icon" data-co-icon="circle-check" data-size="20"></span>
+                </div>
+                <div class="technical-alert-body">
+                  <strong>PARÁMETROS TÉCNICAMENTE VALIDADOS:</strong>
+                  Despeje de tronco de 15 cm y capa de 5 cm. Cumple los estándares de conservación hídrica sin riesgo fitosanitario.
+                </div>
+              </div>
+
+              <!-- Resultados Comparativos (Dos Recipientes) -->
+              <div class="simulator-comparison-grid">
+                
+                <!-- Recipiente A: Suelo Desnudo (Testigo) -->
+                <div class="sim-flask-card flask-control">
+                  <div class="flask-header">
+                    <span class="flask-tag">TESTIGO CONVENCIONAL</span>
+                    <h3 class="flask-title">Suelo Urbano Desnudo</h3>
+                    <p class="flask-sub">Sin cobertura orgánica, compactado por tránsito</p>
+                  </div>
+                  
+                  <div class="flask-metric-row">
+                    <div class="flask-metric-icon">
+                      <span class="co-icon text-red" data-co-icon="termometro" data-size="20"></span>
+                    </div>
+                    <div>
+                      <span class="flask-metric-label">Temperatura del Suelo (10 cm prof.)</span>
+                      <div id="resTempDesnudo" class="flask-metric-val text-red">39.1 °C</div>
+                    </div>
+                  </div>
+
+                  <div class="flask-metric-row">
+                    <div class="flask-metric-icon">
+                      <span class="co-icon text-amber" data-co-icon="gota" data-size="20"></span>
+                    </div>
+                    <div style="flex: 1;">
+                      <div class="flask-metric-label-group">
+                        <span class="flask-metric-label">Humedad en Matriz Edáfica</span>
+                        <span id="resHumDesnudo" class="flask-metric-val text-amber">19%</span>
+                      </div>
+                      <div class="sim-progress-track">
+                        <div id="barHumDesnudo" class="sim-progress-fill bg-amber" style="width: 19%;"></div>
+                      </div>
+                      <span class="flask-sub-text">Pérdida severa por evaporación rápida.</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Recipiente B: Con Bioalcorque -->
+                <div class="sim-flask-card flask-bioalcorque">
+                  <div class="flask-header">
+                    <span class="flask-tag tag-success">INTERVENCIÓN YUMARAÍZ</span>
+                    <h3 class="flask-title">Suelo con Bioalcorque</h3>
+                    <p class="flask-sub">Cobertura de astillas cribadas con despeje de cuello</p>
+                  </div>
+
+                  <div class="flask-metric-row">
+                    <div class="flask-metric-icon">
+                      <span class="co-icon text-emerald" data-co-icon="termometro" data-size="20"></span>
+                    </div>
+                    <div>
+                      <span class="flask-metric-label">Temperatura del Suelo (10 cm prof.)</span>
+                      <div class="flask-val-group">
+                        <span id="resTempBio" class="flask-metric-val text-emerald">27.4 °C</span>
+                        <span id="resDeltaTemp" class="flask-delta-chip bg-emerald-soft text-emerald">-11.7 °C</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flask-metric-row">
+                    <div class="flask-metric-icon">
+                      <span class="co-icon text-blue" data-co-icon="gota" data-size="20"></span>
+                    </div>
+                    <div style="flex: 1;">
+                      <div class="flask-metric-label-group">
+                        <span class="flask-metric-label">Humedad en Matriz Edáfica</span>
+                        <span id="resHumBio" class="flask-metric-val text-blue">68%</span>
+                      </div>
+                      <div class="sim-progress-track">
+                        <div id="barHumBio" class="sim-progress-fill bg-blue" style="width: 68%;"></div>
+                      </div>
+                      <div class="flask-val-group mt-1">
+                        <span id="resDeltaHum" class="flask-delta-chip bg-blue-soft text-blue">+49% de agua</span>
+                        <span class="flask-sub-text">Autonomía estimada: 4.2 días</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Diferenciación Científica Importante (EPA / Universidades) -->
+              <div class="scientific-disclaimer-box">
+                <div class="disclaimer-icon">
+                  <span class="co-icon" data-co-icon="informacion" data-size="20"></span>
+                </div>
+                <div class="disclaimer-text">
+                  <strong>Diferenciación Técnica Rigurosa (US EPA & Washington State Univ.):</strong>
+                  El acolchado orgánico actúa directamente sobre la <em>humedad y la temperatura del suelo radicular</em>, no funciona como un enfriador del aire ambiental. El enfriamiento atmosférico de la ciudad proviene de la sombra y la evapotranspiración foliar activa del árbol sano. El Bioalcorque asegura que el árbol sobreviva al calor para prestar este servicio ambiental.
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA 3: RUTA CLIMÁTICA Y MOTOR DE DECISIÓN -->
+      <section id="screenDecision" class="screen-view">
+        <div class="screen-scrollable">
+          <div class="content-container-max">
+
+            <!-- Hero Ruta Climática -->
+            <div class="decision-hero-card">
+              <div class="bio-hero-header">
+                <div class="bio-hero-icon-slot bg-amber-soft">
+                  <span class="co-icon text-amber" data-co-icon="papelera-reciclaje" data-size="32"></span>
+                </div>
+                <div>
+                  <span class="badge-accent-tag">MOTOR DE DECISIÓN CIRCULAR</span>
+                  <h1 class="page-main-title">Ruta Climática</h1>
+                  <p class="page-subtitle">Algoritmo de valorización en cascada que asigna a cada lote de poda el destino ambiental y económicamente óptimo, evitando el relleno sanitario La Doradita.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="decision-workspace-grid">
+              
+              <!-- Panel de Parámetros del Lote -->
+              <div class="decision-inputs-card">
+                <h3 class="section-card-title">Registro y Caracterización de Poda</h3>
+                <p class="section-card-subtitle">Ingresa las variables del lote generado por cuadrillas municipales o reportes ciudadanos:</p>
+
+                <div class="dec-input-group mt-3">
+                  <div class="sim-control-header">
+                    <label for="decKilos">Volumen Total del Lote:</label>
+                    <span id="decKilosVal" class="sim-badge-val">1500 kg</span>
+                  </div>
+                  <input type="range" id="decKilos" min="200" max="5000" step="100" value="1500" class="sim-slider" />
+                  <span class="sim-help-text">Rango de acopio diario promedio en comunas de La Dorada.</span>
+                </div>
+
+                <div class="dec-input-group">
+                  <label for="decTipoMaterial">Clasificación de Biomasa Predominante:</label>
+                  <select id="decTipoMaterial" class="form-select-custom">
+                    <option value="mezcla" selected>Mezcla Heterogénea Urbana (Ramas + Hojas)</option>
+                    <option value="leñoso">Ramas Leñosas Limpias (3 a 10 cm - Ideal Mulch)</option>
+                    <option value="verde">Follaje Verde y Brotes Blandos (Compostaje)</option>
+                    <option value="troncos">Troncos Gruesos y Tocones (>15 cm - Leña/Secado)</option>
+                  </select>
+                </div>
+
+                <div class="dec-input-group">
+                  <label for="decHumedad">Grado de Humedad Vegetal:</label>
+                  <select id="decHumedad" class="form-select-custom">
+                    <option value="semiseca" selected>Semiseca (25% - 40% humedad, óptima para astillado)</option>
+                    <option value="verde">Verde recién cortada (>45% humedad)</option>
+                    <option value="seca">Seca o madura (<20% humedad)</option>
+                  </select>
+                </div>
+
+                <div class="dec-input-group">
+                  <div class="sim-control-header">
+                    <label for="decDistancia">Distancia al Punto Crítico de Calor:</label>
+                    <span id="decDistanciaVal" class="sim-badge-val">3.2 km</span>
+                  </div>
+                  <input type="range" id="decDistancia" min="0.5" max="10" step="0.5" value="3.2" class="sim-slider" />
+                  <span class="sim-help-text">Radio de transporte para minimizar huella logística.</span>
+                </div>
+              </div>
+
+              <!-- Panel de Salida y Cálculos en Cascada -->
+              <div class="decision-outputs-card">
+                <h3 class="section-card-title">Asignación en Cascada y Balance Económico</h3>
+                <p class="section-card-subtitle">Distribución calculada según viabilidad técnica y ahorro frente al relleno sanitario:</p>
+
+                <!-- Barras de Cascada -->
+                <div class="cascade-breakdown-box">
+                  
+                  <div class="cascade-row">
+                    <div class="cascade-row-header">
+                      <span class="cascade-row-title">
+                        <span class="co-icon text-emerald" data-co-icon="ceiba" data-size="16"></span>
+                        <strong>Bioalcorque (Urbano)</strong>
+                      </span>
+                      <span id="decTxtBioalcorque" class="cascade-row-pct">60% (900 kg)</span>
+                    </div>
+                    <div class="sim-progress-track">
+                      <div id="decBarBioalcorque" class="sim-progress-fill bg-emerald" style="width: 60%;"></div>
+                    </div>
+                  </div>
+
+                  <div class="cascade-row">
+                    <div class="cascade-row-header">
+                      <span class="cascade-row-title">
+                        <span class="co-icon text-amber" data-co-icon="planta-de-cafe" data-size="16"></span>
+                        <strong>Compostaje y Enmienda (Concordia)</strong>
+                      </span>
+                      <span id="decTxtCompost" class="cascade-row-pct">30% (450 kg)</span>
+                    </div>
+                    <div class="sim-progress-track">
+                      <div id="decBarCompost" class="sim-progress-fill bg-amber" style="width: 30%;"></div>
+                    </div>
+                  </div>
+
+                  <div class="cascade-row">
+                    <div class="cascade-row-header">
+                      <span class="cascade-row-title">
+                        <span class="co-icon text-tierra" data-co-icon="fuego-llama" data-size="16"></span>
+                        <strong>Biomasa Seca / Acopio Municipal</strong>
+                      </span>
+                      <span id="decTxtSeca" class="cascade-row-pct">10% (150 kg)</span>
+                    </div>
+                    <div class="sim-progress-track">
+                      <div id="decBarSeca" class="sim-progress-fill bg-tierra" style="width: 10%;"></div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Tarjetas de Ahorro Real Municipal -->
+                <div class="savings-kpi-grid">
+                  <div class="kpi-card bg-emerald-soft">
+                    <span class="kpi-label">Ahorro Neto Municipal:</span>
+                    <div id="decAhorroNeto" class="kpi-number text-emerald">$121,500 COP</div>
+                    <span class="kpi-sub">Frente a la tarifa de disposición PGIRS</span>
+                  </div>
+                  <div class="kpi-card bg-blue-soft">
+                    <span class="kpi-label">Árboles Protegidos:</span>
+                    <div id="decArboles" class="kpi-number text-blue">7 árboles</div>
+                    <span class="kpi-sub">Con capa técnica de 5 cm de espesor</span>
+                  </div>
+                  <div class="kpi-card bg-crema">
+                    <span class="kpi-label">Costo Relleno Evitado:</span>
+                    <div id="decCostoRelleno" class="kpi-number">$172,500 COP</div>
+                    <span class="kpi-sub">1.5 toneladas no enviadas a La Doradita</span>
+                  </div>
+                  <div class="kpi-card bg-crema">
+                    <span class="kpi-label">Emisiones Evitadas:</span>
+                    <div id="decCo2" class="kpi-number text-emerald">420 kg</div>
+                    <span class="kpi-sub">Metano anaeróbico prevenido</span>
+                  </div>
+                </div>
+
+                <!-- Recomendación Inteligente Inyectada -->
+                <div id="decRecomendacionBox" class="mt-3"></div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA 4: RETOS CIUDADANOS («MI APORTE») -->
+      <section id="screenRetos" class="screen-view">
+        <div class="screen-scrollable">
+          <div class="content-container-max">
+
+            <!-- Banner «Mi aporte» -->
+            <div class="retos-hero-banner">
+              <div class="retos-hero-content">
+                <span class="badge-accent-tag">CIENCIA COMUNITARIA Y GOBERNANZA</span>
+                <h1 class="page-main-title">Módulo Ciudadano «Mi aporte»</h1>
+                <p class="page-subtitle">Transformamos la participación vecinal en datos ambientales medibles. Cada ciudadano puede verificar la humedad de un Bioalcorque, alertar restos de poda o proteger árboles.</p>
+              </div>
+              <div class="retos-score-badge">
+                <span class="co-icon text-dorado" data-co-icon="estrella-llena" data-size="28"></span>
+                <div class="score-number">450</div>
+                <div class="score-label">Puntos Cívicos del Barrio</div>
+              </div>
+            </div>
+
+            <!-- Listado Dinámico de Retos -->
+            <div class="retos-section-header">
+              <h2 class="section-card-title">Retos de Adaptación Climática Activos en La Dorada</h2>
+              <button class="btn btn-primary" onclick="App.openModal('modalReporte')">
+                <span class="co-icon" data-co-icon="agregar" data-size="16"></span>
+                <span>Registrar Nuevo Reporte</span>
+              </button>
+            </div>
+
+            <div id="retosList" class="retos-grid-cards"></div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PANTALLA 5: MEMORIA TÉCNICA DEL RETO 4 RALLY 2026 -->
+      <section id="screenRally" class="screen-view">
+        <div class="screen-scrollable">
+          <div class="content-container-max">
+
+            <!-- Cabecera Oficial Reto 4 -->
+            <div class="rally-hero-banner">
+              <div class="rally-team-tags">
+                <span class="rally-tag">Rally Latinoamericano de Innovación 2026</span>
+                <span class="rally-tag">Reto 4: Manejo ecológico de residuos de poda urbana</span>
+                <span class="rally-tag">Equipo Slytherin · UNAD Zona Occidente</span>
+              </div>
+              <h1 class="page-main-title" style="color: #fff;">Memoria Técnica y Validación Territorial</h1>
+              <p class="page-subtitle" style="color: rgba(255,255,255,0.9);">Integración de valorización en cascada, Ruta Climática, Bioalcorque y trazabilidad comunitaria para el municipio de La Dorada, Caldas.</p>
+            </div>
+
+            <!-- Texto de Innovación con Validación de Caracteres -->
+            <div class="rally-section-card">
+              <div class="rally-section-card-header">
+                <div class="rally-sec-num">Apartado 5: Texto Oficial de Innovación para el Reporte Pautado</div>
+                <div class="rally-char-counter">
+                  <span class="text-emerald font-bold">958</span> / 1.000 caracteres reglamentarios
+                </div>
+              </div>
+              <blockquote class="rally-text-body">
+                "En YumaRaíz la innovación no consiste en compostar la poda, sino en convertirla en una herramienta de adaptación climática medible. El sistema integra un motor de decisión de bajo costo que registra cada lote, identifica su uso viable y prioriza sectores con mayor exposición al calor y necesidad de cuidado del arbolado, considerando distancia y costo. Su aplicación visible es el Bioalcorque: una cobertura modular de astillas limpias, obtenidas de ramas aptas, que se instala alrededor de árboles urbanos sin cubrir el tronco y se identifica mediante un código QR. La ficha digital documenta origen, cantidad utilizada, temperatura y humedad del suelo antes y después, mantenimiento y costos, diferenciando resultados medidos de estimaciones. La comunidad aporta datos con «Mi aporte». Un piloto comparativo verificará conservación de humedad y moderación térmica del suelo; no se presupone enfriamiento del aire. Así cada lote de poda deja trazabilidad y resultados evaluables."
+              </blockquote>
+            </div>
+
+            <!-- Matriz de Oportunidades y Mejoras Realizadas -->
+            <div class="rally-section-card">
+              <h3 class="section-card-title">Matriz de Fortalecimiento e Innovación</h3>
+              <div class="rally-table-wrapper">
+                <table class="rally-diff-table">
+                  <thead>
+                    <tr>
+                      <th>Componente Original</th>
+                      <th>Limitación Identificada</th>
+                      <th>Innovación Defendible en YumaRaíz</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Compostaje y Triturado Básico</strong></td>
+                      <td>Procesos agronómicos conocidos, sin diferenciador competitivo.</td>
+                      <td><strong>Bioalcorque</strong>: Producto físico calibrado con despeje técnico de 15 cm y trazabilidad QR individual.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Mapa de Puntos Estático</strong></td>
+                      <td>Solo registraba puntos sin ponderar urgencia ni logística.</td>
+                      <td><strong>Ruta Climática</strong>: Motor algorítmico que cruza temperatura, tipo de madera y ahorro PGIRS ($115,000/t).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Participación «Mi aporte»</strong></td>
+                      <td>Motivaba pero sin verificar datos empíricos.</td>
+                      <td><strong>Ciencia Comunitaria Medible</strong>: Registro de humedad in situ, alertas georreferenciadas y auditoría de alcorques.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Beneficio Climático Urbano</strong></td>
+                      <td>Se asumía enfriamiento atmosférico sin rigor.</td>
+                      <td><strong>Rigor Científico (EPA & WSU)</strong>: Demostración empírica de conservación edáfica diferenciada del enfriamiento del aire.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Contexto Territorial de La Dorada y El Niño -->
+            <div class="rally-section-card">
+              <h3 class="section-card-title">Sustento Normativo y Territorial en Caldas</h3>
+              <div class="territorial-points-list">
+                <div class="territorial-point-item">
+                  <span class="co-icon text-emerald" data-co-icon="circle-check" data-size="18"></span>
+                  <div>
+                    <strong>Confirmación Oficial IDEAM (8 de octubre de 2026):</strong>
+                    Consolidación de condiciones secas asociadas al fenómeno de El Niño. Justifica la necesidad urgente de retener agua en la zona radicular de los árboles urbanos de La Dorada sin recurrir a regadíos intensivos de agua potable.
+                  </div>
+                </div>
+                <div class="territorial-point-item">
+                  <span class="co-icon text-amber" data-co-icon="escudo-alerta" data-size="18"></span>
+                  <div>
+                    <strong>Situación PGIRS y Relleno Sanitario La Doradita (2025-2026):</strong>
+                    Existen procesos contractuales de caracterización de residuos de la Empresa de Servicios Públicos. YumaRaíz no desconoce estas iniciativas, sino que complementa el PGIRS desviando toneladas de poda que hoy saturan la celda transitoria y encarecen los fletes.
+                  </div>
+                </div>
+                <div class="territorial-point-item">
+                  <span class="co-icon text-blue" data-co-icon="check" data-size="18"></span>
+                  <div>
+                    <strong>Línea Futura de Pirolisis y Biochar:</strong>
+                    Se conserva como desarrollo de fase 2 para no comprometer la prefactibilidad económica inmediata del piloto, el cual opera con trituradoras mecánicas existentes en el municipio.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- BARRA DOCK INFERIOR PARA MÓVILES (< 840px) -->
+    <nav class="mobile-bottom-dock" aria-label="Navegación móvil">
+      <button class="dock-item-btn active" data-target-screen="screenInicio" onclick="App.navigateTo('screenInicio')">
+        <span class="co-icon" data-co-icon="silueta-colombia" data-size="18"></span>
+        <span>Inicio</span>
+      </button>
+      <button class="dock-item-btn" data-target-screen="screenMapa" onclick="App.navigateTo('screenMapa')">
+        <span class="co-icon" data-co-icon="mapa" data-size="18"></span>
+        <span>Mapa</span>
+      </button>
+      <button class="dock-item-btn" data-target-screen="screenBioalcorque" onclick="App.navigateTo('screenBioalcorque')">
+        <span class="co-icon" data-co-icon="arbol-tropical" data-size="18"></span>
+        <span>Bioalcorque</span>
+      </button>
+      <button class="dock-item-btn" data-target-screen="screenDecision" onclick="App.navigateTo('screenDecision')">
+        <span class="co-icon" data-co-icon="papelera-reciclaje" data-size="18"></span>
+        <span>Ruta</span>
+      </button>
+      <button class="dock-item-btn" data-target-screen="screenRetos" onclick="App.navigateTo('screenRetos')">
+        <span class="co-icon" data-co-icon="usuarios" data-size="18"></span>
+        <span>Aporte</span>
+      </button>
+      <button class="dock-item-btn" data-target-screen="screenRally" onclick="App.navigateTo('screenRally')">
+        <span class="co-icon" data-co-icon="archivo" data-size="18"></span>
+        <span>Rally</span>
+      </button>
+    </nav>
+
+    <!-- MODAL 1: REPORTAR PODA O ALERTA TÉRMICA -->
+    <div id="modalReporte" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalReporteTitle">
+      <div class="modal-card">
+        <div class="modal-card-header">
+          <div class="modal-header-icon bg-amber-soft">
+            <span class="co-icon text-amber" data-co-icon="tijeras" data-size="22"></span>
+          </div>
+          <div style="flex: 1;">
+            <h3 id="modalReporteTitle" class="modal-title">Reportar Poda o Foco de Calor</h3>
+            <p class="modal-subtitle">Tu reporte ingresa a la Ruta Climática de La Dorada</p>
+          </div>
+          <button class="modal-close-btn" onclick="App.closeModal('modalReporte')" aria-label="Cerrar modal">
+            <span class="co-icon" data-co-icon="cerrar" data-size="18"></span>
+          </button>
+        </div>
+        
+        <form onsubmit="App.submitReporteCiudadano(event)" class="modal-form">
+          <div class="form-group">
+            <label for="repTipo">Tipo de Incidencia:</label>
+            <select id="repTipo" class="form-select-custom" required>
+              <option value="poda_andén">Restos de Poda Acumulados en Andén/Calle</option>
+              <option value="arbol_estres">Árbol Urbano en Estrés Térmico (Suelo Seco)</option>
+              <option value="poda_preventiva">Solicitud de Poda Preventiva</option>
+              <option value="bioalcorque_mantenimiento">Mantenimiento de Bioalcorque Existente</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="repDireccion">Ubicación en La Dorada:</label>
+            <input type="text" id="repDireccion" class="form-input-custom" placeholder="Ej: Calle 15 con Carrera 4, Barrio Centro" required />
+          </div>
+
+          <div class="form-group">
+            <label for="repDescripcion">Descripción o Cantidad Estimada:</label>
+            <textarea id="repDescripcion" rows="3" class="form-textarea-custom" placeholder="Ej: Aprox. 4 costales de ramas tras despeje de red eléctrica..." required></textarea>
+          </div>
+
+          <div class="modal-actions-row">
+            <button type="button" class="btn btn-secondary" onclick="App.closeModal('modalReporte')">Cancelar</button>
+            <button type="submit" class="btn btn-primary">
+              <span class="co-icon" data-co-icon="check" data-size="16"></span>
+              <span>Enviar a la Ruta Climática</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL 2: FICHA DE TRAZABILIDAD QR -->
+    <div id="modalQr" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalQrTitle">
+      <div class="modal-card modal-card-lg">
+        <div class="modal-card-header">
+          <div class="modal-header-icon bg-emerald-soft">
+            <span class="co-icon text-emerald" data-co-icon="qr" data-size="22"></span>
+          </div>
+          <div style="flex: 1;">
+            <h3 id="modalQrTitle" class="modal-title">Ficha de Trazabilidad Bioalcorque</h3>
+            <p class="modal-subtitle">Certificación Digital de Biomasa y Datos Ambientales</p>
+          </div>
+          <button class="modal-close-btn" onclick="App.closeModal('modalQr')" aria-label="Cerrar ficha">
+            <span class="co-icon" data-co-icon="cerrar" data-size="18"></span>
+          </button>
+        </div>
+
+        <div id="qrModalContent" class="qr-content-wrapper"></div>
+      </div>
+    </div>
+
+    <!-- MODAL 3: ACCESIBILIDAD Y PERSONALIZACIÓN -->
+    <div id="modalAccesibilidad" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalAccTitle">
+      <div class="modal-card">
+        <div class="modal-card-header">
+          <div class="modal-header-icon bg-blue-soft">
+            <span class="co-icon text-blue" data-co-icon="ojo" data-size="22"></span>
+          </div>
+          <div style="flex: 1;">
+            <h3 id="modalAccTitle" class="modal-title">Accesibilidad Visual</h3>
+            <p class="modal-subtitle">Configura la lectura para tu comodidad</p>
+          </div>
+          <button class="modal-close-btn" onclick="App.closeModal('modalAccesibilidad')" aria-label="Cerrar modal">
+            <span class="co-icon" data-co-icon="cerrar" data-size="18"></span>
+          </button>
+        </div>
+
+        <div class="acc-options-list">
+          <div class="acc-option-item">
+            <div>
+              <strong>Tamaño del Texto:</strong>
+              <p class="acc-sub-text">Ajusta la escala tipográfica de la plataforma</p>
+            </div>
+            <div class="acc-btn-group">
+              <button class="btn-acc-size active" data-font-size="normal">A</button>
+              <button class="btn-acc-size" data-font-size="large">A+</button>
+              <button class="btn-acc-size" data-font-size="xlarge">A++</button>
+            </div>
+          </div>
+
+          <div class="acc-option-item">
+            <div>
+              <strong>Regla de Lectura para la Vista:</strong>
+              <p class="acc-sub-text">Línea guía horizontal que sigue el cursor</p>
+            </div>
+            <button id="toggleRulerBtn" class="btn btn-outline">Activar Regla</button>
+          </div>
+
+          <div class="acc-option-item">
+            <div>
+              <strong>Modo de Alto Contraste:</strong>
+              <p class="acc-sub-text">Incrementa la visibilidad bajo luz solar directa</p>
+            </div>
+            <button id="toggleContrastBtn" class="btn btn-outline">Alternar Contraste</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL 4: AVISOS Y NOTIFICACIONES TERRITORIALES -->
+    <div id="modalNotificaciones" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalNotifTitle">
+      <div class="modal-card">
+        <div class="modal-card-header">
+          <div class="modal-header-icon bg-red-soft">
+            <span class="co-icon text-red" data-co-icon="alerta" data-size="22"></span>
+          </div>
+          <div style="flex: 1;">
+            <h3 id="modalNotifTitle" class="modal-title">Avisos Ambientales La Dorada</h3>
+            <p class="modal-subtitle">Alertas climáticas y de economía circular</p>
+          </div>
+          <button class="modal-close-btn" onclick="App.closeModal('modalNotificaciones')" aria-label="Cerrar avisos">
+            <span class="co-icon" data-co-icon="cerrar" data-size="18"></span>
+          </button>
+        </div>
+
+        <div class="notif-feed-list">
+          <div class="notif-item">
+            <div class="notif-item-header">
+              <span class="notif-badge-tag tag-red">ALERTA IDEAM · 08 OCT 2026</span>
+              <span class="notif-time">Oficial</span>
+            </div>
+            <h4 class="notif-item-title">Fenómeno El Niño Consolidado</h4>
+            <p class="notif-item-body">El IDEAM confirma temperaturas por encima del promedio en la cuenca del Magdalena Medio Caldense. Se activa prioridad máxima para la retención de agua radicular con Bioalcorques.</p>
+          </div>
+
+          <div class="notif-item">
+            <div class="notif-item-header">
+              <span class="notif-badge-tag tag-amber">OPERATIVO PGIRS</span>
+              <span class="notif-time">En Curso</span>
+            </div>
+            <h4 class="notif-item-title">Capacidad del Relleno La Doradita</h4>
+            <p class="notif-item-body">Ajuste de rutas de recolección de poda hacia la trituradora del Vivero Municipal para evitar la sobrecarga de la celda transitoria.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REGLA DE LECTURA VISUAL ACCESIBLE -->
+    <div id="readingRuler" class="reading-ruler" aria-hidden="true"></div>
+
+  </div>
+
+  <!-- SCRIPTS PRINCIPALES DE LA APLICACIÓN -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/colombiaIcons.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/mapModule.js"></script>
+  <script src="js/bioalcorqueModule.js"></script>
+  <script src="js/decisionModule.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
